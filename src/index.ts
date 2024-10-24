@@ -43,6 +43,9 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+    res.send('Conectado a la API!!!!!!!!!!');
+});
 
 
 // app.use("/api/movies", moviesRouter);
