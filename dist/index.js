@@ -40,6 +40,8 @@ const helmet_1 = __importDefault(require("helmet"));
 // import { itemsRouter } from './items/items.router'
 const movies_routes_1 = require("./movies/movies.routes");
 const database_service_1 = require("./services/database.service");
+const web_push_1 = __importDefault(require("web-push"));
+const notifications_router_1 = require("./movies/notifications.router");
 dotenv.config();
 /**
  * App Variables
@@ -49,16 +51,25 @@ if (!process.env.PORT) {
 }
 const PORT = parseInt(process.env.PORT, 10);
 const app = (0, express_1.default)();
+const vapidPublicKey = process.env.VAPID_PUBLIC_KEY;
+// console.log(vapidPublicKey);
+const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
+// console.log(vapidPrivateKey);
+web_push_1.default.setVapidDetails('mailto:o.buenfilc2@gmail.com', vapidPublicKey, vapidPrivateKey);
 /**
  *  App Configuration
  */
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.get('/', (req, res) => {
+    res.send('Conectado a la API!!!!!!!!!!');
+});
 // app.use("/api/movies", moviesRouter);
 (0, database_service_1.connectToDatabase)()
     .then(() => {
     app.use("/api/movies", movies_routes_1.moviesRouter);
+    app.use("/api/notifications", notifications_router_1.notificationsRouter);
     app.listen(PORT, () => {
         console.log(`Listening on ${PORT}`);
     });

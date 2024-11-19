@@ -39,13 +39,15 @@ const dotenv = __importStar(require("dotenv"));
 exports.collections = {};
 function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
+        var _a, _b, _c;
         dotenv.config();
         const client = new mongoDB.MongoClient((_a = process.env.DB_CONN_STRING) !== null && _a !== void 0 ? _a : "");
         yield client.connect();
         const db = client.db(process.env.DB_NAME);
-        const gamesCollection = db.collection((_b = process.env.MOVIES_COLLECTION_NAME) !== null && _b !== void 0 ? _b : "");
-        exports.collections.movies = gamesCollection;
-        console.log(`Successfully connected to database: ${db.databaseName} and collection: ${gamesCollection.collectionName}`);
+        const moviesCollection = db.collection((_b = process.env.MOVIES_COLLECTION_NAME) !== null && _b !== void 0 ? _b : "");
+        const subscriptionsCollection = db.collection((_c = process.env.SUBSCRIPTION_COLLECTION_NAME) !== null && _c !== void 0 ? _c : "");
+        exports.collections.movies = moviesCollection;
+        exports.collections.subscriptions = subscriptionsCollection;
+        console.log(`Successfully connected to database: ${db.databaseName} and collections: ${moviesCollection.collectionName} ${subscriptionsCollection.collectionName}`);
     });
 }
