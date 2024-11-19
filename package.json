@@ -13,19 +13,25 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^5.0.0",
     "@types/helmet": "^4.0.0",
     "@types/node": "^22.7.5",
+    "@types/web-push": "^3.6.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "helmet": "^8.0.0",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "web-push": "^3.6.7"
   }
 }

@@ -1,7 +1,7 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
 
-export const collections: { movies?: mongoDB.Collection } = {};
+export const collections: { movies?: mongoDB.Collection, subscriptions?: mongoDB.Collection } = {};
 
 export async function connectToDatabase() {
   dotenv.config();
@@ -14,14 +14,16 @@ export async function connectToDatabase() {
 
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
-  const gamesCollection: mongoDB.Collection = db.collection(
+  const moviesCollection: mongoDB.Collection = db.collection(
     process.env.MOVIES_COLLECTION_NAME ?? ""
   );
 
+  const subscriptionsCollection: mongoDB.Collection = db.collection(process.env.SUBSCRIPTION_COLLECTION_NAME ?? "");
 
-  collections.movies = gamesCollection;
+  collections.movies = moviesCollection;
+  collections.subscriptions = subscriptionsCollection;
 
   console.log(
-    `Successfully connected to database: ${db.databaseName} and collection: ${gamesCollection.collectionName}`
+    `Successfully connected to database: ${db.databaseName} and collections: ${moviesCollection.collectionName} ${subscriptionsCollection.collectionName}`
   );
 }
